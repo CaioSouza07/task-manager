@@ -38,7 +38,7 @@ public class TarefaDAO extends BaseDAO{
 
     }
 
-    public List<Tarefa> obterTodos(Usuario usuario){
+    public List<Tarefa> obterTodosPorUsuario(Usuario usuario){
 
         String query = "SELECT * FROM tarefas WHERE usuario_id = ?";
         List<Tarefa> listaTarefas = new ArrayList<>();
@@ -64,13 +64,35 @@ public class TarefaDAO extends BaseDAO{
 
             }
 
-            return listaTarefas;
+            System.out.println("Tarefas obtidas com sucesso!");
 
         } catch (SQLException e) {
             System.out.println("Erro ao obter as tarefas: " + e.getMessage());
             e.printStackTrace();
         }
 
+        return listaTarefas;
+    }
+
+    public void deletarTarefa(Tarefa tarefa){
+
+        String query = "DELETE FROM tarefas WHERE id = ?";
+
+        try (
+                Connection conn = conn();
+                PreparedStatement pre = conn.prepareStatement(query);
+                ){
+
+            pre.setLong(1, tarefa.getId());
+
+            pre.execute();
+
+            System.out.println("Tarefa deletada com sucesso!");
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

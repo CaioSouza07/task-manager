@@ -18,7 +18,7 @@ public class ConnectionFactory {
 
     public Connection get() throws SQLException {
 
-        String url = "jdbc:mysql://localhost:5432/task_manager";
+        String url = "jdbc:postgresql://localhost:5432/task_manager";
         String user = "postgres";
         String password = "postgres";
 
