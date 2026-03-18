@@ -200,11 +200,67 @@ public class App
                             System.out.println("\nDeletado com sucesso!");
                         }
 
-
-
-
-
                     } else if (opcaoDesejada == 5) {
+
+                        System.out.println("-".repeat(5) + "EDITAR TAREFA" + "-".repeat(5));
+                        System.out.println("Digite o id da tarefa: ");
+                        Long id = leitor.nextLong();
+                        leitor.nextLine();
+
+
+                        TarefaDAO tarefaDAO = new TarefaDAO();
+                        Tarefa tarefaEditar = tarefaDAO.findById(id, usuario);
+
+                        if (tarefaEditar.getTitulo() == null){
+                            System.out.println("\nTarefa não encontrada para seu usuario!");
+                        }else{
+                            System.out.println("Digite o titulo: ");
+                            String titulo = leitor.nextLine();
+                            System.out.println("Digite a descrição da tarefa: ");
+                            String descricao = leitor.nextLine();
+
+                            System.out.println("Qual situação deseja colocar? \n");
+                            System.out.println("1 - PENDENTE");
+                            System.out.println("2 - ANDAMENTO");
+                            System.out.println("3 - CONCLUIDO\n");
+
+                            int opcao = leitor.nextInt();
+                            leitor.nextLine();
+
+                            if (opcao < 1 || opcao > 3){
+                                System.out.println("Digite uma opção válida!");
+                            }else{
+
+                                Situacao situacao;
+                                switch (opcao){
+                                    case 1:
+                                        situacao = Situacao.PENDENTE;
+                                        break;
+                                    case 2:
+                                        situacao = Situacao.ANDAMENTO;
+                                        break;
+                                    case 3:
+                                        situacao = Situacao.CONCLUIDO;
+                                        break;
+                                    default:
+                                        situacao = tarefaEditar.getSituacao();
+                                }
+
+                                tarefaEditar.setTitulo(titulo);
+                                tarefaEditar.setDescricao(descricao);
+                                tarefaEditar.setSituacao(situacao);
+
+                                tarefaDAO.atualizar(tarefaEditar);
+                                System.out.println("Tarefa atualizada com sucesso");
+
+                            }
+
+                        }
+
+
+
+
+
 
                     } else if (opcaoDesejada == 6) {
                         System.out.println("-".repeat(5) + "FILTRO SITUAÇÃO" + "-".repeat(5));
