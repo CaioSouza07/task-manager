@@ -325,7 +325,7 @@ public class App
 
             }
         }catch (InputMismatchException e ){
-            System.out.println("Digite uma opção correta!");
+            System.out.println("Digite uma opção válida!");
         }
 
 
